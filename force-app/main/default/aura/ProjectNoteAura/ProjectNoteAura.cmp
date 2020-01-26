@@ -28,6 +28,7 @@
         }
     </aura:html> 
     <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <!-- hello -->
     <!-- <aura:attribute name="isPhone" type="Boolean"/> -->
     <!-- <lightning:flow aura:id="flowData" /> -->
     <!-- <lightning:workspaceAPI aura:id="workspace"/> -->
