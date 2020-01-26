@@ -314,8 +314,8 @@ public without sharing class ATIJobControl {
                                 // nj.Date_Time_Taken__c != oj.Date_Time_Taken__c ||
                                 nj.Project_Manager__c != oj.Project_Manager__c ||
                                 nj.Office__c != oj.Office__c ||
-                                nj.Division__c != oj.Division__c  ||
-                                nj.Name != oj.Name
+                                nj.Division__c != oj.Division__c ||
+                                nj.Name != oj.Name 
                                 //nj.Job_Number__c != oj.Job_number__c
                                 ) {
                                     nj.job_prev_name__c = oldJobMap.get(nj.id).name;
