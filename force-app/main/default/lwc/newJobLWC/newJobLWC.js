@@ -11,9 +11,12 @@
 **/
 import { LightningElement, track } from 'lwc';
 import SearchAccountRoles from '@salesforce/apex/NewJobController.GetAccountRoles';
+import SearchProperties from '@salesforce/apex/NewJobController.GetProperties';
 
+const DELAY = 350;
 export default class NewJobLWC extends LightningElement {
-
+@track Properties; 
+@track searchKey;
 @track NewCaller = false;
 @track NewAccount = false;
 @track NewProperty = false;
@@ -71,5 +74,21 @@ PropertyChange(event){
 }
 }
 
+PropertyChanged(event){
+    
+    window.clearTimeout(this.delayTimeout);
+    console.log('testing ');
+       this.searchKey = event.target.value;
+        // eslint-disable-next-line @lwc/lwc/no-async-operation
+        this.delayTimeout = setTimeout(() => {
+            try {
+                this.Properties = SearchProperties({searchKey : this.searchKey});
+            } catch (e) {
+                this.error = e;
+            }
+        }, DELAY);
+    }
 
 }
+
+

@@ -14,6 +14,17 @@ public with sharing class NewJobController {
     public class JSONWrapper{
         public List<Id> PropertyId {get;set;}
     }
-
+    @AuraEnabled
+    public static List<Property__c> GetProperties(String searchKey) {
+        
+        system.debug('Property is ' + searchKey);
+        //JSONWrapper PropertyIDs = (JSONWrapper)JSON.deserialize(PropertyId, JSONWrapper.class);
+        // for(Id ca : PropertyIDs.PropertyID){
+        // PropertyIDFinal = ca; }
+        String searchLikeKey = '%' + searchKey + '%';
+        List<Property__c> props = [Select Name FROM Property__c Where Name Like : searchKey];
+        system.debug('Properties are ' + props);
+        return props;
+    }
     
 }

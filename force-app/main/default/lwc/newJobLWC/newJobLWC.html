@@ -104,6 +104,16 @@
     </div>
 
     <br>
+    <lightning-input label="Property Search" onchange={PropertyChanged} value={searchKey}></lightning-input>
+    <!-- <template if:true={Properties}> -->
+            <template for:each={Properties} for:item="Property">
+                <c-contact-tile
+                    key={Property.Id}
+                    property={Property}
+                ></c-contact-tile>
+            </template>
+        <!-- </template> -->
+    </div>
     <template if:true={AccountRoles}>
     
       <div class="slds-box slds-theme_shade">
