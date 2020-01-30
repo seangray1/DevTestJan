@@ -4,15 +4,16 @@
   @Author             : Sean Gray
   @Group              : 
   @Last Modified By   : sean.gray@atirestoration.com
-  @Last Modified On   : 12/6/2019, 8:40:40 AM
+  @Last Modified On   : 1/28/2020, 8:46:55 AM
   @Modification Log   : 
   Ver       Date            Author      		    Modification
   1.0    10/8/2019   Sean Gray     Initial Version
 -->
 <aura:component implements="force:appHostable,lightning:actionOverride,force:lightningQuickActionWithoutHeader,flexipage:availableForAllPageTypes,force:appHostable,force:hasRecordId" access="global">
-    
+  <aura:attribute name="recordId" type="Id" description="This attribute is for getting record id"/>
+  <aura:attribute name="recordNotNull" type="boolean" default="false"/>
 <!-- <aura:if isTrue="{!$Browser.isPhone}">   -->
-  <aura:html tag="style">
+  <!-- <aura:html tag="style">
         .slds-modal__container{
         height : auto;
         width: 70%;
@@ -26,13 +27,16 @@
         .customFooter{
         display: inline !important;
         }
-    </aura:html> 
+    </aura:html>  -->
     <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
     <!-- <aura:attribute name="isPhone" type="Boolean"/> -->
     <!-- <lightning:flow aura:id="flowData" /> -->
     <!-- <lightning:workspaceAPI aura:id="workspace"/> -->
     <!-- <div class="slds-modal__content slds-p-around_x-small" style="max-height : 400px; overflow-y:scroll;"> -->
-    <c:projectNote recordId = "{!v.recordId}" onrecordChange="{!c.refreshView}" oncloseform="{!c.closeForm}"/>
+      <aura:if isTrue="{!v.recordNotNull}">
+    <c:projectNote recordId = "{!v.recordId}"/>
+  </aura:if>
+    <!-- onrecordChange="{!c.refreshView}" oncloseform="{!c.closeForm} -->
     <!-- </div> -->
    
     <!-- <aura:set attribute="else">

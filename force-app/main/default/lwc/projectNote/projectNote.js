@@ -18,13 +18,14 @@ import PROJECTNOTECREATE from '@salesforce/apex/JobUtility.createTaskProjectNote
 
 
 export default class ProjectNote extends NavigationMixin (LightningElement) {
-    connectedCallback(){
+    renderedCallback(){
         
-        if(this.jobIdtosearch !== null){
-            this.recordId = this.jobIdtosearch;
+        // if(this.jobIdtosearch !== null){
+        //     this.recordId = this.jobIdtosearch;
             
-            }
+        //     }
             this.Id = Id;
+            if(this.recordId !== null){
         PROJECTNOTEDATE({recordId:this.recordId})
             .then(result => {
                 this.estimateCompleted = result;
@@ -33,7 +34,7 @@ export default class ProjectNote extends NavigationMixin (LightningElement) {
             .then(result => {
                 this.jobComplete = result;
             })
-        
+            }
     }
 @track error = false;
 @track resulting;
@@ -90,15 +91,15 @@ repairCommentsChange(event){
 }
 Cancel(){
     this.loading = true;
-    this.dispatchEvent(new CustomEvent('closeform'));
-    // this[NavigationMixin.Navigate]({
-    //     type: 'standard__recordPage',
-    //     attributes: {
-    //         recordId: this.recordId,
-    //         objectApiName: 'ATI_Job__c',
-    //         actionName: 'view',
-    //     },
-    // });
+    //this.dispatchEvent(new CustomEvent('closeform'));
+    this[NavigationMixin.Navigate]({
+        type: 'standard__recordPage',
+        attributes: {
+            recordId: this.recordId,
+            objectApiName: 'ATI_Job__c',
+            actionName: 'view',
+        },
+    });
 }
 CreateProject(){
   
@@ -112,15 +113,15 @@ CreateProject(){
             this.ExtraData = result;
             if(this.ExtraData === 'Success'){
                 // this.dispatchEvent(new CustomEvent('submitform'));  
-                this.dispatchEvent(new CustomEvent('recordChange'));  
-            //     this[NavigationMixin.Navigate]({
-            //         type: 'standard__recordPage',
-            //         attributes: {
-            //             recordId: this.recordId,
-            //             objectApiName: 'ATI_Job__c',
-            //             actionName: 'view',       
-            //     },
-            // });   
+                // this.dispatchEvent(new CustomEvent('recordChange'));  
+                this[NavigationMixin.Navigate]({
+                    type: 'standard__recordPage',
+                    attributes: {
+                        recordId: this.recordId,
+                        objectApiName: 'ATI_Job__c',
+                        actionName: 'view',       
+                },
+            });   
             }
         });
 }

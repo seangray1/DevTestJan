@@ -139,9 +139,10 @@ public class JobUtility {
     }
      @AuraEnabled
      public static Decimal projectNotePercent(String recordId){
+         system.debug('Record Id is ' + recordId);
          if(recordId != null){
         List<ATI_Job__c> job = [Select Id, Percent_Complete__c FROM ATI_Job__c WHERE Id =: recordId];
-
+        
        
         return job[0].Percent_Complete__c;
         }else{

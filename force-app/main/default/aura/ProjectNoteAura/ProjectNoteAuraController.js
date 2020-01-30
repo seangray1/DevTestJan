@@ -15,7 +15,9 @@
 //         var jobId = component.get("v.recordId");
 //         //alert('Device is ' + device);
 //         if(device === 'PHONE'){
-            
+            if(component.get("v.recordId") !== null){
+                component.get("v.recordNotNull") = true;
+            }
 //         var urlEvent = $A.get("e.force:navigateToURL");
 //     urlEvent.setParams({
 //         "url":"/lightning/n/Project_Note?job__id="+jobId
