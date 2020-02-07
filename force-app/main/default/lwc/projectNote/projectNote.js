@@ -4,28 +4,27 @@
  * @Author             : Sean Gray
  * @Group              : 
  * @Last Modified By   : Sean Gray
- * @Last Modified On   : 10/8/2019, 11:20:40 AM
+ * @Last Modified On   : 2/1/2020, 6:01:38 PM
  * @Modification Log   : 
  * Ver       Date            Author      		    Modification
  * 1.0    9/27/2019   Sean Gray     Initial Version
 **/
 import { LightningElement, track, api } from 'lwc';
 import { NavigationMixin } from 'lightning/navigation';
-import PROJECTNOTEDATE from '@salesforce/apex/JobUtility.projectNoteDate';
-import PROJECTNOTEPERCENT from '@salesforce/apex/JobUtility.projectNotePercent';
+import PROJECTNOTEDATE from '@salesforce/apex/JobButtons.projectNoteDate';
+import PROJECTNOTEPERCENT from '@salesforce/apex/JobButtons.projectNotePercent';
 import Id from '@salesforce/user/Id';
-import PROJECTNOTECREATE from '@salesforce/apex/JobUtility.createTaskProjectNote';
+import PROJECTNOTECREATE from '@salesforce/apex/JobButtons.createTaskProjectNote';
 
 
 export default class ProjectNote extends NavigationMixin (LightningElement) {
-    renderedCallback(){
+    connectedCallback(){
         
-        // if(this.jobIdtosearch !== null){
-        //     this.recordId = this.jobIdtosearch;
+        if(this.jobIdtosearch !== null){
+            this.recordId = this.jobIdtosearch;
             
-        //     }
+            }
             this.Id = Id;
-            if(this.recordId !== null){
         PROJECTNOTEDATE({recordId:this.recordId})
             .then(result => {
                 this.estimateCompleted = result;
@@ -34,7 +33,7 @@ export default class ProjectNote extends NavigationMixin (LightningElement) {
             .then(result => {
                 this.jobComplete = result;
             })
-            }
+        
     }
 @track error = false;
 @track resulting;
@@ -91,15 +90,15 @@ repairCommentsChange(event){
 }
 Cancel(){
     this.loading = true;
-    //this.dispatchEvent(new CustomEvent('closeform'));
-    this[NavigationMixin.Navigate]({
-        type: 'standard__recordPage',
-        attributes: {
-            recordId: this.recordId,
-            objectApiName: 'ATI_Job__c',
-            actionName: 'view',
-        },
-    });
+    this.dispatchEvent(new CustomEvent('closeform'));
+    // this[NavigationMixin.Navigate]({
+    //     type: 'standard__recordPage',
+    //     attributes: {
+    //         recordId: this.recordId,
+    //         objectApiName: 'ATI_Job__c',
+    //         actionName: 'view',
+    //     },
+    // });
 }
 CreateProject(){
   
@@ -113,15 +112,15 @@ CreateProject(){
             this.ExtraData = result;
             if(this.ExtraData === 'Success'){
                 // this.dispatchEvent(new CustomEvent('submitform'));  
-                // this.dispatchEvent(new CustomEvent('recordChange'));  
-                this[NavigationMixin.Navigate]({
-                    type: 'standard__recordPage',
-                    attributes: {
-                        recordId: this.recordId,
-                        objectApiName: 'ATI_Job__c',
-                        actionName: 'view',       
-                },
-            });   
+                this.dispatchEvent(new CustomEvent('recordChange'));  
+            //     this[NavigationMixin.Navigate]({
+            //         type: 'standard__recordPage',
+            //         attributes: {
+            //             recordId: this.recordId,
+            //             objectApiName: 'ATI_Job__c',
+            //             actionName: 'view',       
+            //     },
+            // });   
             }
         });
 }
